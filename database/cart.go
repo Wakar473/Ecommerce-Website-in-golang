@@ -20,7 +20,7 @@ func AddToCart()gin.HandlerFunc {
 
 }
 
-func RemoteItem() gin.HandlerFunc{
+func RemoeItem() gin.HandlerFunc{
 
 }
 
