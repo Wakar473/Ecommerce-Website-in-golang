@@ -9,7 +9,7 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/influxdata/influxdb/cmd/influx_tools/generate"
-	"github.com/wakar473/Ecomerce-Website/models"
+	"github.com/wakar473/Ecommerce-Website/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )

@@ -3,7 +3,7 @@ package routes
 import (
 	// "fmt"
 	"github.com/gin-gonic/gin"
-	"github.com/wakar473/Ecomerce-Website/controllers"
+	"github.com/wakar473/Ecommerce-Website/controllers"
 )
 
 func UserRoutes(incomingRoutes *gin.Engine) {
