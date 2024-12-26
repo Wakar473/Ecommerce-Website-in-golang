@@ -16,22 +16,22 @@ var (
 	ErrCantBuyCarItem = errors.New("cannot update the purchase")
 )
 
-func AddToCart()gin.HandlerFunc {
+func AddProductToCart()gin.HandlerFunc {
 
 }
 
-func RemoeItem() gin.HandlerFunc{
+func RemoveCartItem() gin.HandlerFunc{
 
 }
 
-func GetItemFromCart() gin.HandlerFunc{
+// func GetItemFromCart() gin.HandlerFunc{
+
+// }
+
+func BuyItemFromCart() gin.HandlerFunc{
 
 }
-
-func BuyFromCart() gin.HandlerFunc{
-
-}
-func InstantBuy() gin.HandlerFunc{
+func InstantBuyer() gin.HandlerFunc{
 	
 }
 
