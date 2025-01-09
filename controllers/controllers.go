@@ -9,17 +9,40 @@ import (
 
 	"github.com/gin-gonic/gin"
 	"github.com/influxdata/influxdb/cmd/influx_tools/generate"
+	"github.com/wakar473/Ecommerce-Website/database"
 	"github.com/wakar473/Ecommerce-Website/models"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
+	"golang.org/x/crypto/bcrypt"
 )
 
+var UserCollection *mongo.Collection = database.UserData(database.Client, "Users")
+var ProductCollection *mongo.Collection = database.ProductData(database.Client, "Product")
+var Validate = validator.New()
+
+
 func HashPassword (password string) string {
+	bytes, err := bcrypt.GenerateFromPassword([]byte(password),14)
+	if err != nil {
+		log.Panic(err)
+
+	}
+	return string(bytes)
 		
 }
 
 
 func VerifyPassword (userPassword string, givenPassword string) (bool, string){
+	err := bcrypt.CompareHashAndPassword([]byte(givenPassword), []byte(userPassword))
+	valid := true
+	msg := ""
+
+	if err != nil {
+		msg = "login or Password is incorrect"
+		valid = false
+	}
+	return valid, msg
 
 }
 
