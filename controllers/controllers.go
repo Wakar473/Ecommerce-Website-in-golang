@@ -24,6 +24,9 @@ var Validate = validator.New()
 
 func HashPassword (password string) string {
 	bytes, err := bcrypt.GenerateFromPassword([]byte(password),14)
+	/*bytes,err :=
+	bytes: Yeh variable hashed password ko store karta hai.
+    err: Agar hashing me koi problem hoti hai to yeh error handle karega.*/
 	if err != nil {
 		log.Panic(err)
 
