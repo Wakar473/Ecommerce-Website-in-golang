@@ -104,7 +104,7 @@ func (app *Application) RemoveItem() gin.HandlerFunc {
 		c.IndentedJSON(200, "Successfully Removed Item Form Cart")
 	}
 }
-//function getitem from cart
+
 func GetItemFromCart() gin.HandlerFunc {
 	return func(c *gin.Context){
 		user_id := c.Query("id")
