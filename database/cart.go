@@ -51,7 +51,19 @@ func AddProductToCart(ctx context.Context, prodCollection, userCollection *mongo
 
 }
 
-func RemoveCartItem() gin.HandlerFunc{
+func RemoveCartItem(ctx context.Context, prodCollection, userCollection *mongo.Collection, productID primitive.ObjectID, userID string) error {
+	id , err := primitve.ObjectIDFromHex(userID)
+	if err!= nil{
+		log.Println(err)
+		return ErrUserIdIsNotValid
+	}
+	filter := bson.D(primitive.E{Key:"_id", value:id})
+	update := bson.M{"$pull":bson.M{"usercart": bson.M{"_id":productID}}}
+	_, err =UpdateMany(ctx, filter, update)
+	if err != nil {
+		return ErrCantRemoveItemCart
+	}
+	return nil
 
 }
 
