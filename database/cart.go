@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"log"
+	"time"
 
 	"github.com/gin-gonic/gin"
 	"github.com/wakar473/Ecommerce-Website/models"
@@ -67,11 +68,54 @@ func RemoveCartItem(ctx context.Context, prodCollection, userCollection *mongo.C
 
 }
 
-// func GetItemFromCart() gin.HandlerFunc{
+func GetItemFromCart(ctx context.Context, userCollection *mongo.Collection, userID string) error {
+	/*fetch the cart of the user 
+	find the cart total 
+	create an order with the items
+	empty up the cart*/
 
-// }
+	id, err := primitive.ObjectIDFromHex(userID)
+	if err != NIL {
+		log.Println(err)
+		return ErrUserIdIsNotValid
+	}
 
-func BuyItemFromCart() gin.HandlerFunc{
+	var getcartitems models.User
+	var ordercart models.Order
+
+	ordercart.Order_ID = primitive.NewObjectID()
+	ordercart.Ordered_At = time.Now()
+
+}
+
+func BuyItemFromCart(ctx context.Context, userCollection *mongo.Collection, userID string) error{
+	/*fetch the cart of the user
+	find the cart total
+	create an order with the items
+	empty up the cart*/
+
+	id, err := primitive.ObjectIDFromHex(userID)
+	if err != nil {
+		log.Println(err)
+		return ErrUserIdIsNotValid
+	}
+
+	var getcartitems models.User
+	var ordercart models.Order
+
+	ordercart.Order_ID = primitive.NewObjectID()
+	ordercart.Ordered_At = time.Now()
+	ordercart.Order_cart =make([]models.ProductUser, 0)
+	ordercart.Payment_Method.COD =true
+
+	unwind := bson.D{{Key:"$unwind", Value:bson.D{primitive.E{Key:"path", Value"$usercart"}}}}
+	//without the unwind you won't get access to every single user's price user card supplies 
+	grouping := bson.D{{Key:"$group", Value:bson.D{primitive.E{Key:"_id", Value:"$_id"}, {Key:"total", Value: bson.D{primitive.E{Key:"$sum", Value:"$usercart.price"}}}}}}
+	currentresults, err := userCollection.Aggregate(ctx, mongo.Pipeline{unwind, grouping})
+	ctx.Done()
+	if err != nil {
+		panic(err)
+	}
 
 }
 func InstantBuyer() gin.HandlerFunc{
