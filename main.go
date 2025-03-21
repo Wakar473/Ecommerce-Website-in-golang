@@ -1,6 +1,7 @@
 package main
 
 import (
+	"log"
 	"os"
 
 	"github.com/gin-gonic/gin"
@@ -14,21 +15,21 @@ func main() {
 	port := os.Getenv("PORT")
 	if port == "" {
 		port = "8000"
-
 	}
-	/*with the help of app varibale we can controll all the routes*/
-	app := controllers.NewApplication(database.ProductData(database.Client, "Products"), database.Client, "Users")
+	app := controllers.NewApplication(database.ProductData(database.Client, "Products"), database.UserData(database.Client, "Users"))
 
-	// Create a router
-	router := gin.new()
+	router := gin.New()
 	router.Use(gin.Logger())
-
 	routes.UserRoutes(router)
 	router.Use(middleware.Authentication())
-
-	router.GET("/addtocart", app.Addtocart())
-	router.GET("removeitem", app.RemoveItem())
-	router.GET("/cartcheckout", app.BuyFromcart())
+	router.GET("/addtocart", app.AddToCart())
+	router.GET("/removeitem", app.RemoveItem())
+	router.GET("/listcart", controllers.GetItemFromCart())
+	router.POST("/addaddress", controllers.AddAddress())
+	router.PUT("/edithomeaddress", controllers.EditHomeAddress())
+	router.PUT("/editworkaddress", controllers.EditWorkAddress())
+	router.GET("/deleteaddresses", controllers.DeleteAddress())
+	router.GET("/cartcheckout", app.BuyFromCart())
 	router.GET("/instantbuy", app.InstantBuy())
-
+	log.Fatal(router.Run(":" + port))
 }

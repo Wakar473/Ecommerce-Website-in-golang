@@ -24,7 +24,7 @@ type User struct {
 }
 
 type Product struct {
-	Product_Id   primitive.ObjectID `bson:"_id"`
+	Product_ID   primitive.ObjectID `bson:"_id"`
 	Product_Name *string            `json:"product_name"`
 	Price        *string            `json:"price"`
 	Rating       *string            `json:"rating"`
@@ -34,7 +34,7 @@ type Product struct {
 type ProductUser struct {
 	Product_Id   primitive.ObjectID `bson:"_id"`
 	Product_Name *string            `json:"product_name" bson:"procduct_name"`
-	Price        *string            `json:"price"  bson:"price`
+	Price         int               `json:"price"  bson:"price`
 	Rating       *string            `json:"rating" bson:"rating"`
 	Image        *string            `json:"image" bson:"image"`
 }
@@ -49,9 +49,9 @@ type Address struct {
 
 type Order struct {
 	Order_ID       primitive.ObjectID `bson:_id"`
-	Order_cart     []ProductUser      `json:"order_list"  bson:"order_list"`
-	Ordered_Cart   time.Time          `json:"ordered_at" bson:"ordered_at"`
-	Price          int                `json:"total_price" bson:"discount"`
+	Order_Cart     []ProductUser      `json:"order_list"  bson:"order_list"`
+	Orderered_At   time.Time          `json:"ordered_at" bson:"ordered_at"`
+	Price          int                `json:"total_price" bson:"total_price"`
 	Discount       *int               `json:"discount:  bson:"discount"`
 	Payment_Method Payment            `json:"payment_method" bson:"payment_method"`
 }

@@ -1,7 +1,7 @@
 package middleware
 
 import(
-	token "github.com/wakar473/Ecommerce-Website"
+	token "github.com/wakar473/Ecommerce-Website/tokens"
 	"net/http"
 	"github.com/gin-gonic/gin"
 
